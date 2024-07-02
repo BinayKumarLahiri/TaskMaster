@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Todo List App</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="screen">
+		<div class="app">
+			<div class="sidebar">
+				<div class="profile">
+					<div class="img"></div>
+					<div class="name">Task Master</div>
+				</div>
+				<div class="divider"></div>
+				<div class="categories">
+					<p>Categories</p>
+				</div>
+				<div class="add-group" id="add-category">+ Add New Category</div>
+				<div class="add-task">
+					<div class="divider"></div>
+					<div class="add-btn">+ Add New Task</div>
+				</div>
+			</div>
+
+			<div class="main">
+				<div class="task-input">
+					<div class="profile-img"></div>
+					<input type="text" id="task-input" placeholder="Enter New Task Here">
+					<select name="groups" id="groups">
+					</select>
+					<button id="add">Add Task</button>
+				</div>
+				<div class="divider"></div>
+				<div class="filter-button-grp">
+					<div class="all active">All</div>
+					<div class="completed">Completed</div>
+				</div>
+				<p class="Current-group">All Task</p>
+				<div class="divider"></div>
+				<div class="task-group">
+					<div class="task">
+						<p class="task-text">
+							<span class="task_t">Lorem ipsum dolor sit Lorem, ipsum.</span>
+						</p>
+						<div class="done">Done</div>
+					</div>
+					<div class="task">
+						<p class="task-text">
+							Lorem ipsum dolor sit Lorem, ipsum.
+						</p>
+						<div class="done">Done</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+		<div class="OverlayScreen" id="addTodoOverlay">
+			<div class="AddTodoCard">
+				<div class="upperheading">
+					<div class="cardHeading">Add a Task</div>
+					<div class="exit">X</div>
+				</div>
+				<div class="taskInput">
+					<label for="task-input">Task: </label>
+					<input type="text" id="task-input-Second" placeholder="Enter New Task Here">
+				</div>
+				<div class="groupInput">
+					<label for="groupsSecond">Category:</label>
+					<select name="groupsSecond" id="groupsSecond">
+					</select>
+				</div>
+				<button id="addSecond">Add Task</button>
+			</div>
+		</div>
+
+
+		<div class="OverlayScreen" id="addCategory">
+			<div class="addCategoryCard">
+				<div class="upperheading">
+					<div class="cardHeading">Add New Category</div>
+					<div class="exit" id="Category-exit">X</div>
+				</div>
+				<div class="categoryName">
+					<label for="categoryInput">Category Name : </label>
+					<input type="text" name="categoryInput" id="categoryInput" placeholder="Add New Category">
+				</div>
+				<div class="categoryColor">
+					<label for="categoryColor">Category Color : </label>
+					<input type="color" name="categoryColor" id="categoryColor" value="#ff6347">
+				</div>
+				<button class="addCategory">Add Category</button>
+			</div>
+		</div>
+
+	</div>
+	<script src="index.js"></script>
+	<script src="todo.js"></script>
+	<script src="AddTodoCard.js"></script>
+	<script src="AddCategory.js"></script>
+</body>
+
+</html>
