@@ -1,12 +1,18 @@
 document.querySelector(".profile").addEventListener("click", (e) => {
-  console.log(e);
+  //console.log(e);
   document.querySelector(".sidebar").style.display = "none";
+  document.querySelector(".main").style.display = "flex";
   document.querySelector(".main").style.width = "100%";
   document.querySelector(".profile-img").style.display = "block";
 });
 document.querySelector(".profile-img").addEventListener("click", (e) => {
   document.querySelector(".sidebar").style.display = "flex";
-  document.querySelector(".main").style.width = "70%";
+  if (window.innerWidth > 425)
+    document.querySelector(".main").style.width = "70%";
+  else {
+    document.querySelector(".main").style.display = "none";
+    document.querySelector(".sidebar").style.width = "100%";
+  }
   document.querySelector(".profile-img").style.display = "none";
 });
 
@@ -39,4 +45,11 @@ AddCategoryOpener.addEventListener("click", () => {
 });
 CategoryCardExit.addEventListener("click", () => {
   document.getElementById("addCategory").style.display = "none";
+});
+
+const EditExit = document.getElementById("edit-exit");
+const EditScreen = document.getElementById("EditOverlay");
+
+EditExit.addEventListener("click", () => {
+  EditScreen.style.display = "none";
 });

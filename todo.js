@@ -15,7 +15,8 @@ let data = {
 };
 
 const Done = (e) => {
-  console.log(e.target.id);
+  let data = JSON.parse(localStorage.getItem("data"));
+  //console.log(e.target.id);
   let t = data.task[e.target.id];
   data.task.splice(e.target.id, 1);
   data.completed = [...data.completed, t];
@@ -24,6 +25,7 @@ const Done = (e) => {
 };
 
 const Delete = (e) => {
+  let data = JSON.parse(localStorage.getItem("data"));
   data.completed.splice(e.target.id, 1);
   localStorage.setItem("data", JSON.stringify(data));
   displayCompleted();
@@ -36,6 +38,7 @@ all.addEventListener("click", () => {
   display();
 });
 const displayCompleted = () => {
+  let data = JSON.parse(localStorage.getItem("data"));
   CurrentGroup.innerText = "Completed";
   taskGroup.innerHTML = "";
   let id = 0;
@@ -72,6 +75,7 @@ completed.addEventListener("click", () => {
 });
 
 const display = () => {
+  let data = JSON.parse(localStorage.getItem("data"));
   taskGroup.innerHTML = "";
   let id = 0;
   data.task.forEach((t) => {
@@ -88,6 +92,41 @@ const display = () => {
     taskText.classList.add("task-text");
     taskText.innerText = t.taskValue;
     if (t.status == 1) taskText.style.textDecoration = "line-through";
+
+    let editBtn = document.createElement("div");
+    editBtn.classList.add("done");
+    editBtn.id = id;
+    editBtn.innerText = "Edit";
+    editBtn.addEventListener("click", (e) => {
+      //console.log("Edit");
+      document.getElementById("EditOverlay").style.display = "flex";
+
+      let select = document.getElementById("editGroup");
+      select.innerHTML = "";
+      let data = JSON.parse(localStorage.getItem("data"));
+      for (let key in data.category) {
+        let s = document.createElement("option");
+        s.value = key;
+        s.innerText = key;
+        select.appendChild(s);
+      }
+      //console.log(e.target.id);
+
+      document.getElementById("edit-input").value =
+        data.task[e.target.id].taskValue;
+      document.getElementById("editGroup").value =
+        data.task[e.target.id].category;
+
+      document.getElementById("Edit").addEventListener("click", () => {
+        let i = e.target.id;
+        let data = JSON.parse(localStorage.getItem("data"));
+        data.task[i].taskValue = document.getElementById("edit-input").value;
+        data.task[i].category = document.getElementById("editGroup").value;
+        localStorage.setItem("data", JSON.stringify(data));
+        display();
+        document.getElementById("EditOverlay").style.display = "none";
+      });
+    });
     let Donebtn = document.createElement("div");
     Donebtn.classList.add("done");
     Donebtn.id = id;
@@ -97,12 +136,14 @@ const display = () => {
       Done(e);
     });
     taskBody.appendChild(taskText);
+    taskBody.appendChild(editBtn);
     taskBody.appendChild(Donebtn);
     taskGroup.appendChild(taskBody);
   });
 };
 
 const displaybytag = (tag) => {
+  let data = JSON.parse(localStorage.getItem("data"));
   taskGroup.innerHTML = "";
   let id = 0;
   CurrentGroup.innerText = tag;
@@ -135,7 +176,7 @@ const displaybytag = (tag) => {
   });
 };
 
-window.onload = () => {
+const ShowOnLoad = () => {
   if (localStorage.getItem("data") === null) {
     localStorage.setItem("data", JSON.stringify(data));
   }
@@ -159,10 +200,43 @@ window.onload = () => {
     categoryText.innerText = key;
     categoryText.classList.add("grouptext");
     categoryBar.appendChild(categoryText);
+
+    if (key != "Today") {
+      let deleteBtn = document.createElement("button");
+      deleteBtn.innerText = "X";
+      deleteBtn.classList.add("Cdelete");
+      deleteBtn.id = key;
+      deleteBtn.addEventListener("click", (e) => {
+        let data = JSON.parse(localStorage.getItem("data"));
+        e.stopPropagation();
+        //console.log("Hello");
+        //console.log(e.target.id);
+        //Deleteing the Category from the category list in the data stored in the local storage
+        delete data.category[e.target.id];
+
+        //Changing category tags for every task which has the removed category to "Today" for safety
+
+        data.task.forEach((t) => {
+          if (t.category === e.target.id) t.category = "Today";
+        });
+
+        localStorage.setItem("data", JSON.stringify(data));
+
+        ShowOnLoad();
+      });
+      categoryBar.appendChild(deleteBtn);
+      categoryBar.addEventListener("mouseover", () => {
+        deleteBtn.style.display = "block";
+      });
+      categoryBar.addEventListener("mouseout", () => {
+        deleteBtn.style.display = "none";
+      });
+    }
     CategoryGroup.appendChild(categoryBar);
     categoryBar.addEventListener("click", () => {
       displaybytag(key);
     });
+
     let s = document.createElement("option");
     s.value = key;
     s.innerText = key;
@@ -183,6 +257,41 @@ window.onload = () => {
     let taskText = document.createElement("p");
     taskText.classList.add("task-text");
     taskText.innerText = t.taskValue;
+
+    let editBtn = document.createElement("div");
+    editBtn.classList.add("done");
+    editBtn.id = id;
+    editBtn.innerText = "Edit";
+    editBtn.addEventListener("click", (e) => {
+      //console.log("Edit");
+      document.getElementById("EditOverlay").style.display = "flex";
+
+      let select = document.getElementById("editGroup");
+      select.innerHTML = "";
+      let data = JSON.parse(localStorage.getItem("data"));
+      for (let key in data.category) {
+        let s = document.createElement("option");
+        s.value = key;
+        s.innerText = key;
+        select.appendChild(s);
+      }
+      //console.log(e.target.id);
+
+      document.getElementById("edit-input").value =
+        data.task[e.target.id].taskValue;
+      document.getElementById("editGroup").value =
+        data.task[e.target.id].category;
+
+      document.getElementById("Edit").addEventListener("click", () => {
+        let i = e.target.id;
+        let data = JSON.parse(localStorage.getItem("data"));
+        data.task[i].taskValue = document.getElementById("edit-input").value;
+        data.task[i].category = document.getElementById("editGroup").value;
+        localStorage.setItem("data", JSON.stringify(data));
+        display();
+      });
+    });
+
     let Donebtn = document.createElement("div");
     Donebtn.classList.add("done");
     Donebtn.id = id;
@@ -192,13 +301,18 @@ window.onload = () => {
       Done(e);
     });
     taskBody.appendChild(taskText);
+    taskBody.appendChild(editBtn);
     taskBody.appendChild(Donebtn);
     taskGroup.appendChild(taskBody);
   });
 };
 
+window.onload = () => {
+  ShowOnLoad();
+};
+
 addButton.addEventListener("click", (e) => {
-  data = JSON.parse(localStorage.getItem("data"));
+  let data = JSON.parse(localStorage.getItem("data"));
   data.task = [
     ...data.task,
     {

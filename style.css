@@ -91,10 +91,12 @@ body {
   border-radius: 5px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   font-size: 0.7rem;
   cursor: pointer;
 }
+
 .group:hover {
   background-color: #2f2f2f;
 }
@@ -144,17 +146,23 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  overflow: hidden auto;
 }
 .task {
   width: 80%;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; */
+  display: grid;
+  grid-template-columns: 20px repeat(3, 1fr) 0.5fr;
+  align-items: center;
   font-size: 0.7rem;
 }
 .task-text {
   text-align: left;
-  width: 75%;
+  /* width: 75%; */
+
+  grid-area: 1/2/2/4;
 }
 .task-text-before {
   display: inline-block;
@@ -163,7 +171,10 @@ body {
   border-radius: 50%;
   background-color: lightgreen;
   margin: 0 0.2rem 0 0;
+
+  grid-area: 1/1/2/2;
 }
+
 .done {
   padding: 0.3rem 1rem;
   background-color: #2f2f2f;
@@ -290,11 +301,13 @@ button {
   border-radius: 50%;
 }
 .taskInput #task-input-Second,
-#categoryInput {
+#categoryInput,
+#edit-input {
   width: 100%;
   margin: 0.5rem 0;
 }
-#groupsSecond {
+#groupsSecond,
+#editGroup {
   width: 100%;
   margin: 0.5rem 0;
 }
@@ -327,4 +340,24 @@ button {
     width: 100%;
     margin: 1rem 0;
   }
+}
+
+.group {
+  width: 85%;
+  padding: 5px 0.5rem;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 20px repeat(3, 1fr) 0.5fr;
+  /* grid-template-columns: repeat(); */
+}
+
+.Cdelete {
+  padding: 0rem 0.5rem;
+  border: none;
+  outline: none;
+  background-color: #2f2f2f;
+  font-size: 0.6rem;
+  cursor: pointer;
+  display: none;
+  grid-area: 1/5/2/6;
 }
