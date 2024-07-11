@@ -229,7 +229,7 @@ const ShowOnLoad = () => {
         deleteBtn.style.display = "block";
       });
       categoryBar.addEventListener("mouseout", () => {
-        deleteBtn.style.display = "none";
+        if (window.innerWidth > 425) deleteBtn.style.display = "none";
       });
     }
     CategoryGroup.appendChild(categoryBar);

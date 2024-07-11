@@ -12,6 +12,9 @@ document.querySelector(".profile-img").addEventListener("click", (e) => {
   else {
     document.querySelector(".main").style.display = "none";
     document.querySelector(".sidebar").style.width = "100%";
+    document.querySelectorAll(".Cdelete").forEach((btn) => {
+      btn.style.display = "block";
+    });
   }
   document.querySelector(".profile-img").style.display = "none";
 });
